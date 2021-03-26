@@ -91,7 +91,7 @@ void ArrayList::Clear() {
 Element ArrayList::Get(int index) const {
   internal::check_out_of_range(index, 0, size_);
   // напишите свой код здесь ...
-  return {};
+  return data_[index];
 }
 
 int ArrayList::IndexOf(Element e) const {
