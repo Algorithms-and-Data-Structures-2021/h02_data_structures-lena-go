@@ -49,13 +49,6 @@ void LinkedList::Insert(int index, Element e) {
       size_ += 1;
       return;
   }
-  if(index == size_ - 1){
-      Node *new_node = new Node(e, nullptr);
-      tail_->next = new_node;
-      tail_ = new_node;
-      size_ += 1;
-      return;
-  }
   Node *prv_node = find_node(index - 1);
   Node *new_node = new Node(e, prv_node->next);
   prv_node->next = new_node;
@@ -76,34 +69,33 @@ Element LinkedList::Remove(int index) {
   // Tip 2: используйте функцию find_node(index)
   // напишите свой код здесь ...
 
-  Element value = Element::UNINITIALIZED;
+  if (index == 0) {
+      Element result = head_->data;
+      Node *el = head_->next;
+      delete head_;
+      head_ = el;
+      size_ -= 1;
+      if (size_ == 0) tail_ = nullptr;
+      return result;
+  }
 
-  if (size_ == 1){
-      value = head_->data;
-      head_ = nullptr;
-      tail_ = nullptr;
+  if (index == size_ - 1) {
+      Element result = tail_->data;
+      delete tail_;
+      Node *el = find_node(index - 1);
+      el->next = nullptr;
+      tail_ = el;
+      size_ -= 1;
+      return result;
   }
-  else if (index == 0){
-      value = head_->data;
-      Node *rem_node = head_;
-      head_ = head_->next;
-      delete rem_node;
-  }
-  else if (index == size_ - 1){
-      value = tail_->data;
-      Node *rem_node = tail_;
-      tail_ = find_node(index - 1);
-      delete rem_node;
-  }
-  else{
-      Node *rem_node = find_node(index);
-      Node *prev_node = find_node(index - 1);
-      prev_node->next = rem_node->next;
-      delete rem_node;
-  }
+
+  Node *prev = find_node(index - 1);
+  Node *nxt = prev->next->next;
+  Element result = prev->next->data;
+  delete prev->next;
+  prev->next = nxt;
   size_ -= 1;
-
-  return value;
+  return result;
 }
 
 void LinkedList::Clear() {
