@@ -95,8 +95,11 @@ Element ArrayList::Get(int index) const {
 }
 
 int ArrayList::IndexOf(Element e) const {
-  // напишите свой код здесь ...
-  return {};
+  int result = kNotFoundElementIndex;
+  for (int i = 0; i != size_; i++){
+      if (data_[i] == e) result = i;
+  }
+  return result;
 }
 
 // === РЕАЛИЗОВАНО ===
