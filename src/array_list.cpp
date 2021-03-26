@@ -65,6 +65,7 @@ void ArrayList::Insert(int index, Element e) {
 void ArrayList::Set(int index, Element value) {
   internal::check_out_of_range(index, 0, size_);
   // напишите свой код здесь ...
+  data_[index] = value;
 }
 
 Element ArrayList::Remove(int index) {
