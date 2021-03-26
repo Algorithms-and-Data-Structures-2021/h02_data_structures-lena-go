@@ -46,11 +46,16 @@ void ArrayList::Insert(int index, Element e) {
 
   // Tip 1: используйте метод resize(new_capacity) для расширения емкости массива
   // напишите свой код здесь ...
-
+  if (size_ == capacity_) {
+      resize(capacity_ + kCapacityGrowthCoefficient);
+  }
   assert(size_ < capacity_);  // я ни в коем случае не дам вам совершить ошибку всей вашей жизни
 
   // Tip 2: для свдига элементов вправо можете использовать std::copy
   // напишите свой код после расширения емкости массива здесь ...
+  std::copy(data_ + index, data_ + size_, data_ + index + 1);
+  data_[index] = e;
+  size_ += 1;
 }
 
 void ArrayList::Set(int index, Element value) {
