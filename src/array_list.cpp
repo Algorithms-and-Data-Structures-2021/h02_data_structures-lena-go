@@ -15,6 +15,8 @@ ArrayList::ArrayList(int capacity) : capacity_{capacity} {
 
   // Tip 1: используйте std::fill для заполнения выделенных ячеек массива значением Element::UNINITIALIZED
   // здесь должен быть ваш код ...
+  data_ = new Element[capacity_];
+  std::fill(data_, data_ + capacity_, Element::UNINITIALIZED);
 }
 
 ArrayList::~ArrayList() {
