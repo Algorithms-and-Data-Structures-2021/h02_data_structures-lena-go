@@ -84,6 +84,8 @@ Element ArrayList::Remove(int index) {
 void ArrayList::Clear() {
   // Tip 1: можете использовать std::fill для заполнения ячеек массива значением  Element::UNINITIALIZED
   // напишите свой код здесь ...
+  std::fill(data_, data_ + size_, Element::UNINITIALIZED);
+  size_ = 0;
 }
 
 Element ArrayList::Get(int index) const {
