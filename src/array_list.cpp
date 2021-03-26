@@ -74,7 +74,11 @@ Element ArrayList::Remove(int index) {
   // Tip 1: можете использовать std::copy для сдвига элементов влево
   // Tip 2: не забудьте задать значение Element::UNINITIALIZED освободившейся ячейке
   // напишите свой код здесь ...
-  return {};
+  Element value = data_[index];
+  std::copy(data_ + index + 1, data_ + size_, data_ + index);
+  data_[size_ - 1] = Element::UNINITIALIZED;
+  size_ -= 1;
+  return value;
 }
 
 void ArrayList::Clear() {
