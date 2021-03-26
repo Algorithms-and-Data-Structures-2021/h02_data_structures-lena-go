@@ -22,6 +22,10 @@ ArrayList::ArrayList(int capacity) : capacity_{capacity} {
 ArrayList::~ArrayList() {
   // Tip 1: высвободите выделенную память
   // Tip 2: не забудьте про логическую целостность объекта (инвариантность)
+  delete[] data_;
+  data_ = nullptr;
+  size_ = 0;
+  capacity_ = 0;
 }
 
 void ArrayList::Add(Element e)
