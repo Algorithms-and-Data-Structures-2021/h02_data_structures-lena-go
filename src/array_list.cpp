@@ -24,13 +24,18 @@ ArrayList::~ArrayList() {
   // Tip 2: не забудьте про логическую целостность объекта (инвариантность)
 }
 
-void ArrayList::Add(Element e) {
+void ArrayList::Add(Element e)
+{
   // Tip 1: используйте метод resize(new_capacity) для расширения емкости массива
   // здесь должен быть ваш код ...
-
+  if (size_ == capacity_){
+      resize(capacity_ + kCapacityGrowthCoefficient);
+  }
   assert(size_ < capacity_);  // я здесь, чтобы не дать тебе сойти с правильного пути
 
   // напишите свой код после расширения емкости массива здесь ...
+  data_[size_] = e;
+  size_ += 1;
 }
 
 void ArrayList::Insert(int index, Element e) {
@@ -109,16 +114,16 @@ void ArrayList::resize(int new_capacity) {
   assert(new_capacity > capacity_);  // не ошибается тот, кто ничего не делает ...
 
   // 1. выделяем новый участок памяти
-  auto new_data = new Element[capacity_];
+  auto new_data = new Element[new_capacity];
 
   // 2. копируем данные на новый участок
-  std::copy(data_, data_ + size_ - 1, new_data);
+  std::copy(data_, data_ + size_, new_data);
 
   // 3. заполняем "свободные" ячейки памяти значением Element::UNINITIALIZED
   std::fill(new_data + size_, new_data + new_capacity, Element::UNINITIALIZED);
 
   // 4. высвобождаем старый участок памяти меньшего размера
-  delete data_;
+  delete[] data_;
 
   // 5. пересылаем указатель на новый участок памяти
   data_ = new_data;
